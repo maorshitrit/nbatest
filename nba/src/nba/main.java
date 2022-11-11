@@ -38,6 +38,8 @@ public class main {
 		Getlivescores();
 		createnotification();
 	}
+	
+	
 	public static void createnotification() throws AWTException {
 		 SystemTray tray = SystemTray.getSystemTray();
 
@@ -53,7 +55,7 @@ public class main {
 	        trayIcon.setToolTip("System tray icon demo");
 	        tray.add(trayIcon);
 
-	        trayIcon.displayMessage("Hello, World", "notification demo", MessageType.INFO);
+	        trayIcon.displayMessage("Adam Hagever", "notification demo", MessageType.INFO);
 	}
 	
 	public static void Getlivescores()
@@ -74,6 +76,9 @@ public class main {
 			JSONObject albumJsonObject = albumsArray.getJSONObject(i);
 			String id = albumJsonObject.getString("id");
 			String sportkeyString = albumJsonObject.getString("sport_key");
+			String home_team = albumJsonObject.getString("home_team");
+			String away_team = albumJsonObject.getString("away_team");
+			String commence_time = albumJsonObject.getString("commence_time");
 			Boolean completed = albumJsonObject.getBoolean("completed");
 		if(completed == true) {
 			JSONArray jsonArray = (JSONArray)albumJsonObject.get("scores");
@@ -88,7 +93,7 @@ public class main {
 		else {
 			{
 				 System.out.println("");
-		         System.out.println(id + " " + sportkeyString +" ");
+		         System.out.println(id + " " + sportkeyString +" " + home_team + " " + away_team +" " +commence_time );
 			}
 		}
 	  }
