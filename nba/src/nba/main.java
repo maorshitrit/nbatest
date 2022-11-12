@@ -106,7 +106,7 @@ public class main {
 	public void insertdata(Team [] team)
 	{
 		
-		for(int i=0;i<30;i++)
+		for(int i=1;i<=30;i++)
 		{
 			team[i].setTeamid(i);
 		}
