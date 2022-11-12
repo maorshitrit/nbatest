@@ -34,21 +34,69 @@ public class main {
 	static final String SEASON_Standings = "https://api.sportsdata.io/v3/nba/scores/json/Standings/2023?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // SEASON STANDINGS
 	static final String TEAMID_STRING  = "https://api.sportsdata.io/v3/nba/scores/json/teams?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // TEAM ID STRING
 	final static java.sql.Date date=new java.sql.Date(System.currentTimeMillis());
-	static final String game_by_date = "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/2022-NOV-11?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // game by date
+	static final String game_by_date = "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/2022-11-11?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // game by date
+	static int scott_Foster_id = 20000044;
 	// nba referees  ------- https://official.nba.com/referee-assignments/ -------------
 	
 	public static void main(String[] args) throws AWTException {
 		// TODO Auto-generated method stub
 
+		System.out.println(scott_Foster_id);
 		System.out.println(date);	
 		System.out.println("test");
 		System.out.println("david");	
-		Getlivescores();
+		//Getlivescores();
+		getthegamesToday();
 		createnotification();
 	}
 	
+	public static boolean CheckReferee()
+	{
+		return true;
+	}
+	
+	public static boolean isNull(Object obj) {
+	     return obj == null;
+	 }
+	
+	 public static void getthegamesToday()
+		{
+			HttpClient client =  HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder().uri(URI.create(game_by_date)).build();
+			client.sendAsync(request, HttpResponse.BodyHandlers.ofString())
+			.thenApply(HttpResponse::body)
+			.thenApply(main::Parse).join();
+		}
+	 
+	 public static String Parse(String responsebody)
+		{int i;
+		int CrewChiefID = 0;
+			// responsebody = responsebody.substring(1);
+			JSONArray albumsArray = new JSONArray(responsebody);
+		for( i =0; i<albumsArray.length();i++)
+			{
+				JSONObject albumJsonObject = albumsArray.getJSONObject(i);
+				int GameID = albumJsonObject.getInt("GameID");
+				int Season = albumJsonObject.getInt("Season");
+				String HomeTeam = albumJsonObject.getString("HomeTeam");
+				String AwayTeam = albumJsonObject.getString("AwayTeam");
+				
+				if(!(albumJsonObject.isNull("CrewChiefID"))) 
+				{
+					CrewChiefID = albumJsonObject.getInt("CrewChiefID");
+				}
+				
+				
+				
+				System.out.println(GameID +" " + HomeTeam + " " +AwayTeam + " " +CrewChiefID);
+			}
+				
+		   return null;
+		  }
+	
 	public void insertdata(Team [] team)
 	{
+		
 		for(int i=0;i<30;i++)
 		{
 			team[i].setTeamid(i);
@@ -81,7 +129,7 @@ public class main {
 	        trayIcon.displayMessage("Adam Hagever", "notification demo", MessageType.INFO);
 	}
 	
-	public static void Getlivescores()
+	/* public static void Getlivescores()
 	{
 		HttpClient client =  HttpClient.newHttpClient();
 		HttpRequest request = HttpRequest.newBuilder().uri(URI.create("https://api.the-odds-api.com/v4/sports/basketball_nba/scores/?daysFrom=2&apiKey="+API_KEY)).build();
@@ -124,5 +172,5 @@ public class main {
 	System.out.println(i);
 		return null;
 
-}
+}*/
 }
