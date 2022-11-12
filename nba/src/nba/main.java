@@ -6,11 +6,14 @@ import java.awt.SystemTray;
 import java.awt.Toolkit;
 import java.awt.TrayIcon;
 import java.awt.TrayIcon.MessageType;
+import java.beans.JavaBean;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.security.PublicKey;
+import java.sql.Date;
+import java.sql.Struct;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -26,15 +29,35 @@ import netscape.javascript.JSObject;
 
 public class main {
 	
-	static final String API_KEY = "a5fb04339f84532afc45e0c034c02590";
-
-
+	static final String API_KEY = "a5fb04339f84532afc45e0c034c02590"; // FOR LIVE SCORES + NAMES
+	static final String Referees_Url = "https://api.sportsdata.io/v3/nba/scores/json/Referees?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d";  // REFEEREE IDS
+	static final String SEASON_Standings = "https://api.sportsdata.io/v3/nba/scores/json/Standings/2023?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // SEASON STANDINGS
+	static final String TEAMID_STRING  = "https://api.sportsdata.io/v3/nba/scores/json/teams?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // TEAM ID STRING
+	final static java.sql.Date date=new java.sql.Date(System.currentTimeMillis());
+	static final String game_by_date = "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/2022-NOV-11?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // game by date
+	// nba referees  ------- https://official.nba.com/referee-assignments/ -------------
+	
 	public static void main(String[] args) throws AWTException {
 		// TODO Auto-generated method stub
 
+		System.out.println(date);	
 		System.out.println("test");
-		System.out.print("david");
-		System.out.println("tetbsro");	
+		System.out.println("david");	
+		Getlivescores();
+		createnotification();
+	}
+	
+	public void insertdata(Team [] team)
+	{
+		for(int i=0;i<30;i++)
+		{
+			team[i].setTeamid(i);
+		}
+		team[0].setTeamnameString("WAS");
+	}
+	
+	public static void WhengameHappend() throws AWTException
+	{
 		Getlivescores();
 		createnotification();
 	}
