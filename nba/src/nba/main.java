@@ -45,7 +45,6 @@ public class main {
 		System.out.println(date);	
 		System.out.println("test");
 		System.out.println("david");	
-		
 		getthegamesToday();
 	}
 	
@@ -110,7 +109,12 @@ public class main {
 		{
 			team[i].setTeamid(i);
 		}
-		team[0].setTeamnameString("WAS");
+		team[0].setTeamnameString("WAS");team[1].setTeamnameString("CHA");team[2].setTeamnameString("ATL");team[3].setTeamnameString("MIA");team[4].setTeamnameString("ORL");
+		team[5].setTeamnameString("NY");team[6].setTeamnameString("PHI");team[7].setTeamnameString("BKN");team[8].setTeamnameString("BOS");team[9].setTeamnameString("TOR");
+		team[10].setTeamnameString("CHI");team[11].setTeamnameString("CLE");team[12].setTeamnameString("IND");team[13].setTeamnameString("DET");team[14].setTeamnameString("MIL");
+		team[15].setTeamnameString("MIN");team[16].setTeamnameString("UTA");team[17].setTeamnameString("OKC");team[18].setTeamnameString("POR");team[19].setTeamnameString("DEN");
+		team[20].setTeamnameString("MEM");team[21].setTeamnameString("HOU");team[22].setTeamnameString("NO");team[23].setTeamnameString("SA");team[24].setTeamnameString("DAL");
+		team[25].setTeamnameString("GS");team[26].setTeamnameString("LAL");team[27].setTeamnameString("LAC");team[28].setTeamnameString("PHO");team[29].setTeamnameString("SAC");
 	}
 	
 	public static void WhengameHappend() throws AWTException
