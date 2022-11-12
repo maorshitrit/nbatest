@@ -22,6 +22,10 @@ public class Team {
 	public void setTeamnameString(String teamnameString) {
 		this.teamnameString = teamnameString;
 	}
+	@Override
+	public String toString() {
+		return "Team [teamid=" + teamid + ", teamnameString=" + teamnameString + "]";
+	}
 	
 }
 
