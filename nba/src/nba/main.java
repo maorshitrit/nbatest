@@ -34,7 +34,7 @@ public class main {
 	static final String SEASON_Standings = "https://api.sportsdata.io/v3/nba/scores/json/Standings/2023?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // SEASON STANDINGS
 	static final String TEAMID_STRING  = "https://api.sportsdata.io/v3/nba/scores/json/teams?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // TEAM ID STRING
 	final static java.sql.Date date=new java.sql.Date(System.currentTimeMillis());
-	static final String game_by_date = "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/2022-11-11?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // game by date
+	static final String game_by_date = "https://api.sportsdata.io/v3/nba/scores/json/GamesByDate/"+date+"?key=ae3e9b9d6dec4f9a9dedc0c29f2d289d"; // game by date
 	static int scott_Foster_id = 20000044;
 	// nba referees  ------- https://official.nba.com/referee-assignments/ -------------
 	
@@ -45,9 +45,8 @@ public class main {
 		System.out.println(date);	
 		System.out.println("test");
 		System.out.println("david");	
-		//Getlivescores();
+		
 		getthegamesToday();
-		createnotification();
 	}
 	
 	public static boolean CheckReferee()
@@ -68,7 +67,7 @@ public class main {
 			.thenApply(main::Parse).join();
 		}
 	 
-	 public static String Parse(String responsebody)
+	 public static game Parse(String responsebody)
 		{int i;
 		int CrewChiefID = 0;
 			// responsebody = responsebody.substring(1);
@@ -84,14 +83,24 @@ public class main {
 				if(!(albumJsonObject.isNull("CrewChiefID"))) 
 				{
 					CrewChiefID = albumJsonObject.getInt("CrewChiefID");
+					if(CrewChiefID == scott_Foster_id)
+					{
+						game game = new game(GameID, Season, CrewChiefID, HomeTeam, AwayTeam);
+						try {
+							createnotification();
+						} catch (AWTException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						return game;
+					}
 				}
 				
 				
 				
 				System.out.println(GameID +" " + HomeTeam + " " +AwayTeam + " " +CrewChiefID);
 			}
-				
-		   return null;
+		return null;
 		  }
 	
 	public void insertdata(Team [] team)
@@ -106,7 +115,7 @@ public class main {
 	
 	public static void WhengameHappend() throws AWTException
 	{
-		Getlivescores();
+		//Getlivescores();
 		createnotification();
 	}
 	
